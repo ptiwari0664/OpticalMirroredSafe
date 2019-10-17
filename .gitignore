@@ -1,0 +1,9 @@
+build*/
+devel*/
+logs/
+.bt
+.pcd
+.catkin_*
+CMakeLists.txt.user
+**/*-build
+

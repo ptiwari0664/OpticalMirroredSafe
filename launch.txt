@@ -1,0 +1,2 @@
+./OpticalMirroredSafe_ex < ../input.txt
+
