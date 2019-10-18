@@ -1,10 +1,10 @@
 #pragma once
 #include <OpticalMirroredSafe/OpticalSafe.h>
 
-class BeamDriver
+class OpticalBeam
 {
 private:
-    Safe safe;
+    OpticalSafe safe;
 
     Direction LeftReflect(const Mirror mirror) const;
     Direction RightReflect(const Mirror mirror) const;
@@ -21,8 +21,8 @@ private:
             const Position& beamFirstFailPos, const Direction beamFirstFailDir) const;
 
 public:
-    BeamDriver(Safe safe);
-    ~BeamDriver();
+    OpticalBeam(OpticalSafe safe);
+    ~OpticalBeam();
 
     bool BeamOpenSafeMissingMirrorFind(std::vector<MirrorObj>& missingMirrors) const;
 };

@@ -27,7 +27,7 @@ public:
     MirrorObj(int row, int col, Mirror mir) : pos(row, col), mirror(mir) {}
 };
 
-class Safe
+class OpticalSafe
 {
 private:
     int rowCount;
@@ -35,8 +35,8 @@ private:
     std::vector<std::vector<Mirror>> mirrorGrid;
 
 public:
-    Safe(const int rows, const int cols);
-    ~Safe();
+    OpticalSafe(const int rows, const int cols);
+    ~OpticalSafe();
 
     void SetMirrorInGrid(const Position& pos, const Mirror mirror);
     Mirror GetMirrorFromGrid(const Position& pos) const;

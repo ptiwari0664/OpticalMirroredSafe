@@ -14,9 +14,9 @@
 #define SSCANF sscanf
 #endif
 
-std::vector<Safe> UserInputSetupSafes()
+std::vector<OpticalSafe> UserInputSetupSafes()
 {
-    std::vector<Safe> vSafes;
+    std::vector<OpticalSafe> vSafes;
     std::string line;
     int rowCnt, colCnt, mLines, nLines;
     int row, col;
@@ -37,7 +37,7 @@ std::vector<Safe> UserInputSetupSafes()
             break;
         }
 
-        Safe safe(rowCnt, colCnt);
+        OpticalSafe safe(rowCnt, colCnt);
 
         for (auto i = 0; i < mLines; i++)
         {
@@ -106,6 +106,7 @@ void PrintResults(const std::vector<MirrorObj>& missingMirrors, bool safeOpenSuc
 int main(int argc, char* argv[])
 {
 
+    // try and catch usage to avoid exceptions
     try
     {
         auto vSafes = UserInputSetupSafes();
@@ -113,7 +114,7 @@ int main(int argc, char* argv[])
 
         for (auto safe : vSafes)
         {
-            BeamDriver bd(safe);
+            OpticalBeam bd(safe);
             std::vector<MirrorObj> missingMirrors;
 
             auto safeOpenSuccess = bd.BeamOpenSafeMissingMirrorFind(missingMirrors);

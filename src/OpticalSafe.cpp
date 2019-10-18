@@ -2,17 +2,23 @@
 #include <stdexcept>
 using namespace std;
 
-Safe::Safe(const int rows, const int cols):
+/**
+ * @brief OpticalSafe::OpticalSafe
+ * @param rows
+ * @param cols
+ * @brief Initializing the optical lasar safe
+ */
+OpticalSafe::OpticalSafe(const int rows, const int cols):
     rowCount(rows),
     colCount(cols)
 {
-    std::cout << "<< ----- Received a New case ----- >> \n";
+    std::cout << "<< ----- Received a New OpticalSafe ----- >> \n";
     mirrorGrid.resize(rows, vector<Mirror>(cols, Mirror::None));
 }
 
-Safe::~Safe() = default;
+OpticalSafe::~OpticalSafe() = default;
 
-void Safe::SetMirrorInGrid(const Position& pos, const Mirror mirror)
+void OpticalSafe::SetMirrorInGrid(const Position& pos, const Mirror mirror)
 {
     if (pos.row < rowCount && pos.col < colCount && pos.row >=0 && pos.col >= 0)
     {
@@ -24,7 +30,7 @@ void Safe::SetMirrorInGrid(const Position& pos, const Mirror mirror)
     }
 }
 
-Mirror Safe::GetMirrorFromGrid(const Position& pos) const
+Mirror OpticalSafe::GetMirrorFromGrid(const Position& pos) const
 {
     if (pos.row < rowCount && pos.col < colCount && pos.row >= 0 && pos.col >= 0)
     {
@@ -37,22 +43,22 @@ Mirror Safe::GetMirrorFromGrid(const Position& pos) const
 
 }
 
-int Safe::GetRowCount() const
+int OpticalSafe::GetRowCount() const
 {
     return rowCount;
 }
 
-int Safe::GetColumnCount() const
+int OpticalSafe::GetColumnCount() const
 {
     return colCount;
 }
 
-vector<vector<Mirror>> Safe::GetMirrorGrid() const
+vector<vector<Mirror>> OpticalSafe::GetMirrorGrid() const
 {
     return mirrorGrid;
 }
 
-bool Safe::IsEmpty() const
+bool OpticalSafe::IsEmpty() const
 {
     return mirrorGrid.empty();
 }
