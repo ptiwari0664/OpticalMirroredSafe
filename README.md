@@ -30,6 +30,12 @@ Each of the next m lines contains two integer numbers ri and ci(1 ≤ ri ≤ r a
 	2. k r c if the safe does not open without inserting a mirror, there are exactly k positions where inserting a mirror opens the safe, and (r, c) is the lexicographically smallest such row, column position. A position where both a / and a \ mirror open the safe counts just once.
 	3. impossible if the safe cannot be opened with or without inserting a mirror. 
 
+## How to Compile
+```
+cd OpticalMirroredSafe
+mkdir build
+cd build
+```
 
 ## Authors
 
