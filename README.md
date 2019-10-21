@@ -35,8 +35,15 @@ Each of the next m lines contains two integer numbers ri and ci(1 ≤ ri ≤ r a
 cd OpticalMirroredSafe
 mkdir build
 cd build
+cmake ..
+make
+```
+## How to Run
+```
+cd OpticalMirroredSafe
+./build/OpticalMirroredSafe_ex < input.txt
 ```
 
-## Authors
+## Author
 
 * **Puneet Tiwari**
