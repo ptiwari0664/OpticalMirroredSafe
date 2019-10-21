@@ -3,10 +3,20 @@
 #include <cmath>
 using namespace std;
 
-OpticalBeam::OpticalBeam(OpticalSafe safe) : safe(safe) {}
+/**
+ * @brief OpticalBeam::OpticalBeam
+ * @param safe
+ */
+OpticalBeam::OpticalBeam(OpticalSafe safe) : optSafeObj_(safe) {}
 OpticalBeam::~OpticalBeam() = default;
 
-Direction OpticalBeam::LeftReflect(const Mirror mirror) const
+/**
+ * @brief OpticalBeam::LeftTravellingBeam
+ * @param mirror
+ * @return Beam Next Direction
+ * @abstract While travelling towards left side these cases will occur
+ */
+Direction OpticalBeam::LeftTravellingBeam(const Mirror mirror) const
 {
     switch (mirror)
     {
@@ -21,7 +31,13 @@ Direction OpticalBeam::LeftReflect(const Mirror mirror) const
     }
 }
 
-Direction OpticalBeam::RightReflect(const Mirror mirror) const
+/**
+ * @brief OpticalBeam::RightTravellingBeam
+ * @param mirror
+ * @return Beam Next Direction
+ * @abstract While travelling towards right side these cases will occur
+ */
+Direction OpticalBeam::RightTravellingBeam(const Mirror mirror) const
 {
     switch (mirror)
     {
@@ -36,7 +52,13 @@ Direction OpticalBeam::RightReflect(const Mirror mirror) const
     }
 }
 
-Direction OpticalBeam::UpReflect(const Mirror mirror) const
+/**
+ * @brief OpticalBeam::UpTravellingBeam
+ * @param mirror
+ * @return Beam Next Direction
+ * @abstract While travelling towards upward these cases will occur
+ */
+Direction OpticalBeam::UpTravellingBeam(const Mirror mirror) const
 {
     switch (mirror)
     {
@@ -51,7 +73,13 @@ Direction OpticalBeam::UpReflect(const Mirror mirror) const
     }
 }
 
-Direction OpticalBeam::DownReflect(const Mirror mirror) const
+/**
+ * @brief OpticalBeam::DownTravellingBeam
+ * @param mirror
+ * @return Beam Next Direction
+ * @abstract While travelling towards downward these cases will occur
+ */
+Direction OpticalBeam::DownTravellingBeam(const Mirror mirror) const
 {
     switch (mirror)
     {
@@ -66,23 +94,35 @@ Direction OpticalBeam::DownReflect(const Mirror mirror) const
     }
 }
 
+/**
+ * @brief OpticalBeam::DetermineNextDirection
+ * @param curDirection
+ * @param mirror
+ * @return Optical beam direction based on mirror and direction
+ */
 Direction OpticalBeam::DetermineNextDirection(const Direction curDirection, const Mirror mirror) const
 {
     switch (curDirection)
     {
     case Left:
-        return LeftReflect(mirror);
+        return LeftTravellingBeam(mirror);
     case Right:
-        return RightReflect(mirror);
+        return RightTravellingBeam(mirror);
     case Up:
-        return UpReflect(mirror);
+        return UpTravellingBeam(mirror);
     case Down:
-        return DownReflect(mirror);
+        return DownTravellingBeam(mirror);
     default:
         throw runtime_error("Unknown Direction type");
     }
 }
 
+/**
+ * @brief OpticalBeam::DetermineNextPos
+ * @param Direction
+ * @param curPos
+ * @return beam position based on travel
+ */
 Position OpticalBeam::DetermineNextPos(const Direction Direction, const Position& curPos) const
 {
     Position newPos = curPos;
@@ -106,29 +146,35 @@ Position OpticalBeam::DetermineNextPos(const Direction Direction, const Position
     return newPos;
 }
 
+/**
+ * @brief OpticalBeam::BeamWithinSafe
+ * @param curPos
+ * @return true / false based on beam existance within the safe
+ */
 bool OpticalBeam::BeamWithinSafe(const Position& curPos) const
 {
-    const auto rowCount = safe.GetRowCount();
-    const auto colCount = safe.GetColumnCount();
+    const auto rowCount = optSafeObj_.GetRowCount();
+    const auto colCount = optSafeObj_.GetColumnCount();
     return (curPos.col < colCount && curPos.col >= 0 && curPos.row < rowCount && curPos.row >= 0);
 }
 
 bool OpticalBeam::BeamOpensSafe(const Position& curPos, const Direction curDir) const
 {
-    const auto rowCount = safe.GetRowCount();
-    const auto colCount = safe.GetColumnCount();
+    const auto rowCount = optSafeObj_.GetRowCount();
+    const auto colCount = optSafeObj_.GetColumnCount();
     return (curDir == Direction::Right && curPos.row == (rowCount - 1) && curPos.col >= colCount);
 }
 
 bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirrors) const
 {
-    if (safe.IsEmpty())
+    if (optSafeObj_.IsEmpty())
     {
         return false;
     }
+    //Defininh the initial beam pose to be 0,0 which will be travelling towards right
     Position curPos(0, 0);
     auto curDir = Direction::Right;
-    auto curMirror = safe.GetMirrorFromGrid(curPos);
+    auto curMirror = optSafeObj_.GetMirrorFromGrid(curPos);
     auto isNewDir = false;
 
     auto beamOpenSafeSuccess = false;
@@ -151,7 +197,7 @@ bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirror
             }
             curDir = nextDir;
             curPos = nextPos;
-            curMirror = safe.GetMirrorFromGrid(curPos);
+            curMirror = optSafeObj_.GetMirrorFromGrid(curPos);
         }
 
         if (BeamOpensSafe(curPos, curDir))

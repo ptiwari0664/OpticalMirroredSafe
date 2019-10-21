@@ -13,14 +13,22 @@ Programmer's job is to determine if particular safes are actually secure. A secu
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-The files rover_input.txt and rover_output.txt should be at home location. If this is not the case, then the program will not read the files and will output a bad file name and terminates. 
+The file input.txt responds with respect to this file where the user can insert his/her inputs for the solution. The solution will be displayed on the terminal accordingly.
 
 ### Input
 Each test case describes a single safe and starts with a line containing four integer numbers r, c, m, and n. The mechanisms grid has r rows and c columns.
+
 Each of the next m lines contains two integer numbers ri and ci(1 ≤ ri ≤ r and 1 ≤ ci ≤ c) specifying that there is a / mirror in row ri column ci . The following n lines specify the positions of the \ mirrors in the same way. The m + n positions of the mirrors are pairwise distinct.
 
+#### Constraints: 
+	- Category I  (0-2 years of experience) :  1 ≤ r, c ≤ 1000 and 0 ≤ m, n ≤ 2000.
+	- Category II (2+  years of experience) :  1 ≤ r, c ≤ 1000000 and 0 ≤ m, n ≤ 200000).
 
-
+### Output
+For each test case, display its case number followed by:
+##### 0 if the safe opens without inserting a mirror.
+##### k r c if the safe does not open without inserting a mirror, there are exactly k positions where inserting a mirror opens the safe, and (r, c) is the lexicographically smallest such row, column position. A position where both a / and a \ mirror open the safe counts just once.
+###### impossible if the safe cannot be opened with or without inserting a mirror. 
 
 
 

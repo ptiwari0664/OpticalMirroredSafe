@@ -4,12 +4,12 @@
 class OpticalBeam
 {
 private:
-    OpticalSafe safe;
+    OpticalSafe optSafeObj_;
 
-    Direction LeftReflect(const Mirror mirror) const;
-    Direction RightReflect(const Mirror mirror) const;
-    Direction UpReflect(const Mirror mirror) const;
-    Direction DownReflect(const Mirror mirror) const;
+    Direction LeftTravellingBeam(const Mirror mirror) const;
+    Direction RightTravellingBeam(const Mirror mirror) const;
+    Direction UpTravellingBeam(const Mirror mirror) const;
+    Direction DownTravellingBeam(const Mirror mirror) const;
 
     Direction DetermineNextDirection(const Direction curDirection, const Mirror mirror)const;
     Position DetermineNextPos(const Direction curDir, const Position& curPos) const;
@@ -21,7 +21,7 @@ private:
             const Position& beamFirstFailPos, const Direction beamFirstFailDir) const;
 
 public:
-    OpticalBeam(OpticalSafe safe);
+    OpticalBeam(OpticalSafe optSafeObj_);
     ~OpticalBeam();
 
     bool BeamOpenSafeMissingMirrorFind(std::vector<MirrorObj>& missingMirrors) const;

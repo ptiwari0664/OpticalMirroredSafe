@@ -14,6 +14,11 @@
 #define SSCANF sscanf
 #endif
 
+/**
+ * @brief UserInputSetupSafes
+ * @brief Reacts according to the user input
+ * @return vector of OpticalSafe
+ */
 std::vector<OpticalSafe> UserInputSetupSafes()
 {
     std::vector<OpticalSafe> vSafes;
@@ -27,13 +32,13 @@ std::vector<OpticalSafe> UserInputSetupSafes()
 
         if (SSCANF(line.c_str(), "%d %d %d %d", &rowCnt, &colCnt, &mLines, &nLines) != 4)
         {
-            std::cout << "Unknown input Detected. Please start over.\n";
+            std::cout << "\033[1;31mUnknown input Detected\033[0m\n";
             break;
         }
         if (!(rowCnt, colCnt <= 1000000 && rowCnt, colCnt >= 0 &&
               mLines, nLines <= 200000 && mLines, nLines >= 0))
         {
-            std::cout << "Input out of range. Please start over.\n";
+            std::cout << "\033[1;31mInput out of range\033[0m\n";
             break;
         }
 
@@ -45,7 +50,7 @@ std::vector<OpticalSafe> UserInputSetupSafes()
             SSCANF(line.c_str(), "%d %d", &row, &col);
             Position pos(row - 1, col - 1);
             safe.SetMirrorInGrid(pos, ForwardSlantMirror);
-            std::cout << " Received Forward Mirrors \n";
+            std::cout << "Received Forward Mirrors \n";
         }
 
         for (auto j = 0; j < nLines; j++)
@@ -54,7 +59,7 @@ std::vector<OpticalSafe> UserInputSetupSafes()
             SSCANF(line.c_str(), "%d %d", &row, &col);
             Position pos(row - 1, col - 1);
             safe.SetMirrorInGrid(pos, BackSlantMirror);
-            std::cout << " Received Backward Mirrors \n";
+            std::cout << "Received Backward Mirrors \n";
 
         }
         vSafes.push_back(safe);
@@ -105,19 +110,21 @@ void PrintResults(const std::vector<MirrorObj>& missingMirrors, bool safeOpenSuc
 
 int main(int argc, char* argv[])
 {
-
     // try and catch usage to avoid exceptions
     try
     {
-        auto vSafes = UserInputSetupSafes();
+        auto vSafes = UserInputSetupSafes();    //Take input from the file
+
+        std::cout << "Total Safe received = " << vSafes.size() << std::endl;
+
         auto count = 0;
 
         for (auto safe : vSafes)
         {
-            OpticalBeam bd(safe);
+            OpticalBeam optbeam(safe);
             std::vector<MirrorObj> missingMirrors;
 
-            auto safeOpenSuccess = bd.BeamOpenSafeMissingMirrorFind(missingMirrors);
+            auto safeOpenSuccess = optbeam.BeamOpenSafeMissingMirrorFind(missingMirrors);
 
             std::cout << "Case " << ++count << " : ";
             PrintResults(missingMirrors, safeOpenSuccess);
