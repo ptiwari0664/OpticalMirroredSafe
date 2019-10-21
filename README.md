@@ -25,7 +25,7 @@ Each of the next m lines contains two integer numbers ri and ci(1 ≤ ri ≤ r a
 	- Category II (2+  years of experience) :  1 ≤ r, c ≤ 1000000 and 0 ≤ m, n ≤ 200000).
 
 ### Output
-For each test case, display its case number followed by:
+#### For each case, display its case number followed by:
 	1. 0 if the safe opens without inserting a mirror.
 	2. k r c if the safe does not open without inserting a mirror, there are exactly k positions where inserting a mirror opens the safe, and (r, c) is the lexicographically smallest such row, column position. A position where both a / and a \ mirror open the safe counts just once.
 	3. impossible if the safe cannot be opened with or without inserting a mirror. 
