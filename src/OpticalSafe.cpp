@@ -18,6 +18,11 @@ OpticalSafe::OpticalSafe(const int rows, const int cols):
 
 OpticalSafe::~OpticalSafe() = default;
 
+/**
+ * @brief OpticalSafe::SetMirrorInGrid
+ * @param pos
+ * @param mirror
+ */
 void OpticalSafe::SetMirrorInGrid(const Position& pos, const Mirror mirror)
 {
     if (pos.row < rowCount && pos.col < colCount && pos.row >=0 && pos.col >= 0)
@@ -30,6 +35,11 @@ void OpticalSafe::SetMirrorInGrid(const Position& pos, const Mirror mirror)
     }
 }
 
+/**
+ * @brief OpticalSafe::GetMirrorFromGrid
+ * @param pos
+ * @return mirrors
+ */
 Mirror OpticalSafe::GetMirrorFromGrid(const Position& pos) const
 {
     if (pos.row < rowCount && pos.col < colCount && pos.row >= 0 && pos.col >= 0)
@@ -43,21 +53,37 @@ Mirror OpticalSafe::GetMirrorFromGrid(const Position& pos) const
 
 }
 
+/**
+ * @brief OpticalSafe::GetRowCount
+ * @return number of rows
+ */
 int OpticalSafe::GetRowCount() const
 {
     return rowCount;
 }
 
+/**
+ * @brief OpticalSafe::GetColumnCount
+ * @return number of columns
+ */
 int OpticalSafe::GetColumnCount() const
 {
     return colCount;
 }
 
+/**
+ * @brief OpticalSafe::GetMirrorGrid
+ * @return 2d mirror grid
+ */
 vector<vector<Mirror>> OpticalSafe::GetMirrorGrid() const
 {
     return mirrorGrid;
 }
 
+/**
+ * @brief OpticalSafe::IsEmpty
+ * @return bool
+ */
 bool OpticalSafe::IsEmpty() const
 {
     return mirrorGrid.empty();

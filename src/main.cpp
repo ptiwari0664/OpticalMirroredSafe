@@ -67,6 +67,11 @@ std::vector<OpticalSafe> UserInputSetupSafes()
     return vSafes;
 }
 
+/**
+ * @brief GetLexSmallestMirror
+ * @param mirrorObjects
+ * @return mirror positions
+ */
 Position GetLexSmallestMirror(const std::vector<MirrorObj>& mirrorObjects)
 {
     Position smallestPos;
@@ -85,6 +90,11 @@ Position GetLexSmallestMirror(const std::vector<MirrorObj>& mirrorObjects)
     return smallestPos;
 }
 
+/**
+ * @brief PrintResults
+ * @param missingMirrors
+ * @param safeOpenSuccess
+ */
 void PrintResults(const std::vector<MirrorObj>& missingMirrors, bool safeOpenSuccess)
 {
     if (!safeOpenSuccess && missingMirrors.empty())
@@ -108,6 +118,12 @@ void PrintResults(const std::vector<MirrorObj>& missingMirrors, bool safeOpenSuc
 
 }
 
+/**
+ * @brief main
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char* argv[])
 {
     // try and catch usage to avoid exceptions

@@ -158,6 +158,12 @@ bool OpticalBeam::BeamWithinSafe(const Position& curPos) const
     return (curPos.col < colCount && curPos.col >= 0 && curPos.row < rowCount && curPos.row >= 0);
 }
 
+/**
+ * @brief OpticalBeam::BeamOpensSafe
+ * @param curPos
+ * @param curDir
+ * @return bool
+ */
 bool OpticalBeam::BeamOpensSafe(const Position& curPos, const Direction curDir) const
 {
     const auto rowCount = optSafeObj_.GetRowCount();
@@ -165,6 +171,11 @@ bool OpticalBeam::BeamOpensSafe(const Position& curPos, const Direction curDir) 
     return (curDir == Direction::Right && curPos.row == (rowCount - 1) && curPos.col >= colCount);
 }
 
+/**
+ * @brief OpticalBeam::BeamOpenSafeMissingMirrorFind
+ * @param missingMirrors
+ * @return bool
+ */
 bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirrors) const
 {
     if (optSafeObj_.IsEmpty())
@@ -237,6 +248,13 @@ bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirror
     return beamOpenSafeSuccess;
 }
 
+/**
+ * @brief OpticalBeam::GetPossibleMissingMirrors
+ * @param beamLastKnownPos
+ * @param beamFirstFailPos
+ * @param beamFirstFailDir
+ * @return mirror postions
+ */
 vector<MirrorObj> OpticalBeam::GetPossibleMissingMirrors(const Position& beamLastKnownPos, const Position& beamFirstFailPos, const Direction beamFirstFailDir) const
 {
     vector<MirrorObj> missingMirrorObj;
