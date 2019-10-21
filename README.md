@@ -44,6 +44,6 @@ cd OpticalMirroredSafe
 ./build/OpticalMirroredSafe_ex < input.txt
 ```
 
-## Authors
+## Author
 
 * **Puneet Tiwari**
