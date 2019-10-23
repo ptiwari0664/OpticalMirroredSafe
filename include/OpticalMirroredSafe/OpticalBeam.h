@@ -12,7 +12,7 @@ private:
     Direction DownTravellingBeam(const Mirror mirror) const;
 
     Direction DetermineNextDirection(const Direction curDirection, const Mirror mirror)const;
-    Position DetermineNextPos(const Direction curDir, const Position& curPos) const;
+    Position DetermineNextPosition(const Direction curDir, const Position& curPos) const;
 
     bool BeamWithinSafe(const Position& curPos) const;
     bool BeamOpensSafe(const Position& curPos, const Direction curDir) const;

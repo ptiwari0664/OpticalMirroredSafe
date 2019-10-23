@@ -50,7 +50,7 @@ std::vector<OpticalSafe> UserInputSetupSafes()
             SSCANF(line.c_str(), "%d %d", &row, &col);
             Position pos(row - 1, col - 1);
             safe.SetMirrorInGrid(pos, ForwardSlantMirror);
-            std::cout << "Received Forward Mirrors \n";
+            std::cout << "Received Forward Mirror \n";
         }
 
         for (auto j = 0; j < nLines; j++)
@@ -59,7 +59,7 @@ std::vector<OpticalSafe> UserInputSetupSafes()
             SSCANF(line.c_str(), "%d %d", &row, &col);
             Position pos(row - 1, col - 1);
             safe.SetMirrorInGrid(pos, BackSlantMirror);
-            std::cout << "Received Backward Mirrors \n";
+            std::cout << "Received Backward Mirror \n";
 
         }
         vSafes.push_back(safe);
@@ -138,12 +138,12 @@ int main(int argc, char* argv[])
         for (auto safe : vSafes)
         {
             OpticalBeam optbeam(safe);
-            std::vector<MirrorObj> missingMirrors;
+            std::vector<MirrorObj> missingMirrorsObj;
 
-            auto safeOpenSuccess = optbeam.BeamOpenSafeMissingMirrorFind(missingMirrors);
+            auto safeOpenSuccess = optbeam.BeamOpenSafeMissingMirrorFind(missingMirrorsObj);
 
             std::cout << "Case " << ++count << " : ";
-            PrintResults(missingMirrors, safeOpenSuccess);
+            PrintResults(missingMirrorsObj, safeOpenSuccess);
         }
     }
     catch (std::exception& exp)

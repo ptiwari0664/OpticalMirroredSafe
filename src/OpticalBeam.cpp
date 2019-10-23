@@ -100,9 +100,9 @@ Direction OpticalBeam::DownTravellingBeam(const Mirror mirror) const
  * @param mirror
  * @return Optical beam direction based on mirror and direction
  */
-Direction OpticalBeam::DetermineNextDirection(const Direction curDirection, const Mirror mirror) const
+Direction OpticalBeam::DetermineNextDirection(const Direction currentDirection, const Mirror mirror) const
 {
-    switch (curDirection)
+    switch (currentDirection)
     {
     case Left:
         return LeftTravellingBeam(mirror);
@@ -113,7 +113,7 @@ Direction OpticalBeam::DetermineNextDirection(const Direction curDirection, cons
     case Down:
         return DownTravellingBeam(mirror);
     default:
-        throw runtime_error("Unknown Direction type");
+        throw runtime_error("Received Unknown Direction");
     }
 }
 
@@ -123,9 +123,9 @@ Direction OpticalBeam::DetermineNextDirection(const Direction curDirection, cons
  * @param curPos
  * @return beam position based on travel
  */
-Position OpticalBeam::DetermineNextPos(const Direction Direction, const Position& curPos) const
+Position OpticalBeam::DetermineNextPosition(const Direction Direction, const Position& currentPosition) const
 {
-    Position newPos = curPos;
+    Position newPos = currentPosition;
     switch (Direction)
     {
     case Left:
@@ -182,7 +182,8 @@ bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirror
     {
         return false;
     }
-    //Defininh the initial beam pose to be 0,0 which will be travelling towards right
+
+    //Define the initial beam pose to be 0,0 which will be travelling towards right
     Position curPos(0, 0);
     auto curDir = Direction::Right;
     auto curMirror = optSafeObj_.GetMirrorFromGrid(curPos);
@@ -200,14 +201,14 @@ bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirror
     {
         while (BeamWithinSafe(curPos))
         {
-            auto nextDir = DetermineNextDirection(curDir, curMirror);
-            auto nextPos = DetermineNextPos(nextDir, curPos);
-            if (nextDir != curDir && beamFailCount == 0)
+            auto nextDirection = DetermineNextDirection(curDir, curMirror);
+            auto nextPosition = DetermineNextPosition(nextDirection, curPos);
+            if (nextDirection != curDir && beamFailCount == 0)
             {
-                beamLastKnownPos = nextPos; //Possible missing mirrors start here
+                beamLastKnownPos = nextPosition; //Possible missing mirrors start here
             }
-            curDir = nextDir;
-            curPos = nextPos;
+            curDir = nextDirection;
+            curPos = nextPosition;
             curMirror = optSafeObj_.GetMirrorFromGrid(curPos);
         }
 
@@ -245,6 +246,7 @@ bool OpticalBeam::BeamOpenSafeMissingMirrorFind(vector<MirrorObj>& missingMirror
         }
 
     }
+
     return beamOpenSafeSuccess;
 }
 
